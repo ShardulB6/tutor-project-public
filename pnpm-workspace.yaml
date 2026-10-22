@@ -1,0 +1,22 @@
+allowBuilds:
+  better-sqlite3: false
+  core-js-pure: false
+  esbuild: false
+  lightningcss: false
+  sharp: false
+  workerd: false
+
+minimumReleaseAgeExclude:
+  - agents@0.13.1
+
+overrides:
+  vite: npm:@voidzero-dev/vite-plus-core@latest
+  vitest: npm:@voidzero-dev/vite-plus-test@latest
+
+peerDependencyRules:
+  allowAny:
+    - vite
+    - vitest
+  allowedVersions:
+    vite: "*"
+    vitest: "*"

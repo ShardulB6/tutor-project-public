@@ -1,0 +1,1 @@
+ALTER TABLE `notebook` ADD `is_deleting` integer DEFAULT false NOT NULL;

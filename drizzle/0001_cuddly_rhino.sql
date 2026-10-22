@@ -1,0 +1,1 @@
+ALTER TABLE `todos` ADD `updated_at` integer DEFAULT (unixepoch());

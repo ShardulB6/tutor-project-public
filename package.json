@@ -1,0 +1,130 @@
+{
+  "name": "tutor-project",
+  "private": true,
+  "type": "module",
+  "imports": {
+    "#/*": "./src/*"
+  },
+  "scripts": {
+    "dev": "vp dev --port 3000",
+    "build": "vp build",
+    "preview": "vp preview",
+    "test": "vp test run",
+    "check": "vp check",
+    "deploy": "vp build && wrangler deploy && node scripts/apply-remote-migrations.mjs",
+    "auth:generate": "pnpm dlx auth@latest generate --output src/db/auth-schema.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "wrangler d1 migrations apply DB --local",
+    "db:migrate:remote": "node scripts/apply-remote-migrations.mjs",
+    "db:pull": "drizzle-kit pull",
+    "db:studio": "drizzle-kit studio",
+    "prepare": "vp config"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "^3.0.60",
+    "@ai-sdk/react": "^3.0.179",
+    "@cloudflare/ai-chat": "^0.7.2",
+    "@cloudflare/think": "^0.7.3",
+    "@cloudflare/vite-plugin": "^1.36.4",
+    "@openrouter/ai-sdk-provider": "^2.10.0",
+    "@radix-ui/react-use-controllable-state": "^1.2.2",
+    "@rive-app/react-webgl2": "^4.28.3",
+    "@streamdown/cjk": "^1.0.3",
+    "@streamdown/code": "^1.1.1",
+    "@streamdown/math": "^1.0.2",
+    "@streamdown/mermaid": "^1.0.2",
+    "@tailwindcss/vite": "^4.1.18",
+    "@tanstack/react-devtools": "latest",
+    "@tanstack/react-form": "latest",
+    "@tanstack/react-query": "latest",
+    "@tanstack/react-query-devtools": "latest",
+    "@tanstack/react-router": "1.166.7",
+    "@tanstack/react-router-devtools": "1.166.7",
+    "@tanstack/react-router-ssr-query": "1.166.7",
+    "@tanstack/react-start": "1.166.7",
+    "@tanstack/router-plugin": "1.166.7",
+    "@xyflow/react": "^12.10.2",
+    "agents": "^0.13.3",
+    "ai": "^6.0.146",
+    "ansi-to-react": "^6.2.6",
+    "better-auth": "1.6.30",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cmdk": "^1.1.1",
+    "drizzle-kit": "^0.31.9",
+    "drizzle-orm": "^0.45.1",
+    "drizzle-zod": "^0.8.3",
+    "embla-carousel-react": "^8.6.0",
+    "lucide-react": "^0.577.0",
+    "media-chrome": "^4.19.0",
+    "motion": "^12.38.0",
+    "nanoid": "^5.1.11",
+    "next-themes": "^0.4.6",
+    "radix-ui": "^1.4.3",
+    "react": "^19.2.0",
+    "react-aria": "^3.47.0",
+    "react-dom": "^19.2.0",
+    "react-jsx-parser": "^2.4.1",
+    "react-resizable-panels": "^4.11.0",
+    "shiki": "^4.0.2",
+    "streamdown": "^2.5.0",
+    "tailwind-merge": "^3.0.2",
+    "tailwindcss": "^4.1.18",
+    "tokenlens": "^1.3.1",
+    "tw-animate-css": "^1.3.6",
+    "use-stick-to-bottom": "^1.1.4",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16",
+    "@tanstack/devtools-vite": "latest",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.0",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.1.4",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "dotenv": "^17.3.1",
+    "jsdom": "^28.1.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.7.2",
+    "vite": "npm:@voidzero-dev/vite-plus-core@^0.1.21",
+    "vite-plus": "latest",
+    "vitest": "npm:@voidzero-dev/vite-plus-test@latest",
+    "wrangler": "^4.95.0"
+  },
+  "packageManager": "pnpm@11.5.0",
+  "cloudflare": {
+    "label": "Tutor AI",
+    "products": [
+      "Workers",
+      "Durable Objects",
+      "D1",
+      "R2"
+    ],
+    "bindings": {
+      "BETTER_AUTH_URL": {
+        "description": "The public URL of this Worker, such as `https://tutor-project.<your-subdomain>.workers.dev` or your custom domain. Use the same URL for your GitHub OAuth app homepage."
+      },
+      "BETTER_AUTH_SECRET": {
+        "description": "A unique signing secret of at least 32 characters. Generate one with `openssl rand -base64 32` and keep it private."
+      },
+      "GITHUB_CLIENT_ID": {
+        "description": "Client ID from your [GitHub OAuth app](https://github.com/settings/developers). Set its callback URL to `<BETTER_AUTH_URL>/api/auth/callback/github`."
+      },
+      "GITHUB_CLIENT_SECRET": {
+        "description": "Client secret from the same GitHub OAuth app."
+      },
+      "DB": {
+        "description": "D1 stores accounts, notebooks, sources, and chat history. Tutor applies its schema migrations during deployment."
+      },
+      "TUTOR_BUCKET": {
+        "description": "R2 stores PDFs uploaded to notebooks."
+      },
+      "TutorAgent": {
+        "description": "A Durable Object keeps each tutoring session stateful."
+      }
+    }
+  }
+}

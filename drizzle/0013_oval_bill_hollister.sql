@@ -1,0 +1,1 @@
+ALTER TABLE `files` ADD `topics` text DEFAULT '[]' NOT NULL;
